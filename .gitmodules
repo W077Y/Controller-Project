@@ -1,0 +1,6 @@
+[submodule "exmath"]
+	path = exmath
+	url = https://github.com/W077Y/Ex-Math.git
+[submodule "controller"]
+	path = controller
+	url = https://github.com/W077Y/Controller.git
