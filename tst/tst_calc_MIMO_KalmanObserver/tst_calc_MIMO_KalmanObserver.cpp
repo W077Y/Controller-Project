@@ -12,15 +12,18 @@ TEST_CASE()
 
   for (std::size_t i = 0; i < test_data::parameter::y_meas.number_of_columns; i++)
   {
-    calc.correction_step(test_data::parameter::y_meas(0, i));
+    calc.correction_step({ test_data::parameter::y_meas(0, i), test_data::parameter::y_meas(1, i) });
 
     auto const x = calc.get_x();
     auto const y = calc.get_y();
     for (std::size_t j = 0; j < x.number_of_rows; j++)
     {
-      REQUIRE(x(j, 0) == Approx(test_data::parameter::x(j, i)).margin(1E-3));
+      REQUIRE(x(j, 0) == Approx(test_data::parameter::x(j, i)).margin(1E-5));
     }
-    REQUIRE(y(0, 0) == Approx(test_data::parameter::y(0, i)).margin(1E-3));
+    for (std::size_t j = 0; j < y.number_of_rows; j++)
+    {
+      REQUIRE(y(j, 0) == Approx(test_data::parameter::y(j, i)).margin(1E-5));
+    }
 
     calc.update_step({ test_data::parameter::u(0, i), test_data::parameter::u(1, i) });
   }
